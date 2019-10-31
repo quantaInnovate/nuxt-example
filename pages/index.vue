@@ -2,12 +2,12 @@
   <div class="container">
     <navbar />
     <div class="col-12">
-      <div class="row">
-        <n-link to="/about">about page</n-link>
-      </div>
-      <h4>dadasd</h4>
-      <div class v-for="loda in datae">
-        <p>{{loda.title}}</p>
+      <div class="row"></div>
+
+      <p>จำนวนคนทั้งหมด {{count_data}}</p>
+
+      <div class v-for="loda in datae.everybody_list">
+        <p>{{loda.name_thai}}</p>
       </div>
     </div>
   </div>
@@ -18,13 +18,14 @@ import navbar from "~/components/navbar.vue";
 import axios from "axios";
 
 export default {
-
-  //TODO: get data with store
+  //TODO: get data with axios
   asyncData() {
     return axios
-      .get("https://jsonplaceholder.typicode.com/posts")
+      .get(
+        "https://h4ma9nwiu4.execute-api.ap-southeast-1.amazonaws.com/test/api/everybody"
+      )
       .then(res => {
-        return { datae: res.data };
+        return { datae: res.data, count_data: res.data.everybody_count };
       })
       .catch(e => {
         console.log("erroe::" + e);
@@ -45,6 +46,9 @@ export default {
     this.dasd();
   }
 };
+
+
+
 </script>
 
 <style>
